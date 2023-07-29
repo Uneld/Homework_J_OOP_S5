@@ -2,21 +2,16 @@ package Task1.Presenter;
 
 import Task1.Model.*;
 import Task1.View.CalculatorView;
+
 //определяем presenter с использование всех моделей вычислений
 public class CalculatorPresenter {
     private final CalculatorView view;
-    private final AdditionModel additionModel;
-    private final SubtractionModel subtractionModel;
-    private final MultiplicationModel multiplicationModel;
-    private final DivisionModel divisionModel;
 
-    public CalculatorPresenter(CalculatorView view) {
+    private final DataModels models;
+
+    public CalculatorPresenter(CalculatorView view, DataModels models) {
         this.view = view;
-
-        additionModel = new AdditionModel();
-        subtractionModel = new SubtractionModel();
-        multiplicationModel = new MultiplicationModel();
-        divisionModel = new DivisionModel();
+        this.models = models;
     }
 
     //метод получения ввода пользователя и вычисления результата
@@ -31,30 +26,30 @@ public class CalculatorPresenter {
         switch (operator) {
             case "+" -> {
                 //использование модели суммы
-                additionModel.setA(num1);
-                additionModel.setB(num2);
+                models.getAdditionModel().setA(num1);
+                models.getAdditionModel().setB(num2);
                 //вывод на консоль результата
-                view.printResult(additionModel.result(), "Сумма = ");
+                view.printResult(models.getAdditionModel().result(), "Сумма = ");
             }
             case "-" -> {
                 //использование модели разности
-                subtractionModel.setA(num1);
-                subtractionModel.setB(num2);
+                models.getSubtractionModel().setA(num1);
+                models.getSubtractionModel().setB(num2);
                 //вывод на консоль результата
-                view.printResult(subtractionModel.result(), "Разность = ");
+                view.printResult( models.getSubtractionModel().result(), "Разность = ");
             }
             case "*" -> {
                 //использование модели произведения
-                multiplicationModel.setA(num1);
-                multiplicationModel.setB(num2);
+                models.getMultiplicationModel().setA(num1);
+                models.getMultiplicationModel().setB(num2);
                 //вывод на консоль результата
-                view.printResult(multiplicationModel.result(), "Произведение = ");
+                view.printResult(models.getMultiplicationModel().result(), "Произведение = ");
             }
             case "/" -> {
                 //использование модели частного
-                divisionModel.setA(num1);
-                divisionModel.setB(num2);
-                Double result = divisionModel.result();
+                models.getDivisionModel().setA(num1);
+                models.getDivisionModel().setB(num2);
+                Double result = models.getDivisionModel().result();
                 //вывод на консоль результата с проверкой на null если вычисление провалилось
                 if (result != null) {
                     //вывод на консоль результата
